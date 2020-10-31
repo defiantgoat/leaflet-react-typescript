@@ -2,18 +2,18 @@ import React,  { useState, useEffect } from 'react';
 import { Map, LatLng } from 'leaflet'
 import LeafletMapContext from '../LeafletMapContext';
 import { DEFAULT_MAP_ZOOM, DEFAULT_MAP_CENTER } from '../../constants';
-import './Map.scss';
+import './LeafletMap.scss';
 
 interface LeafletMapProps {
   children: React.ReactNode;
-  zoom: number;
-  center: {
+  zoom?: number;
+  center?: {
     lat: number;
     long: number;
   }
 }
 
-const LeafletMap: React.FC = ({
+const LeafletMap: React.FC<LeafletMapProps> = ({
   children,
   zoom = DEFAULT_MAP_ZOOM,
   center = DEFAULT_MAP_CENTER
