@@ -1,5 +1,5 @@
-import React,  { useState, useEffect } from 'react';
-import { Map, LatLng } from 'leaflet'
+import React,  { useState, useLayoutEffect } from 'react';
+import * as L from 'leaflet';
 import LeafletMapContext from '../LeafletMapContext';
 import { DEFAULT_MAP_ZOOM, DEFAULT_MAP_CENTER } from '../../constants';
 import './LeafletMap.scss';
@@ -10,21 +10,27 @@ interface LeafletMapProps {
   center?: {
     lat: number;
     long: number;
-  }
+  },
+  testid?: string;
 }
+
+const DEFAULT_TEST_ID = 'leaflet-map-container';
 
 const LeafletMap: React.FC<LeafletMapProps> = ({
   children,
   zoom = DEFAULT_MAP_ZOOM,
-  center = DEFAULT_MAP_CENTER
+  center = DEFAULT_MAP_CENTER,
+  testid = DEFAULT_TEST_ID
 }: LeafletMapProps) =>  {
   const [leafletMap, setLeafletMap] = useState(null as any);
 
-  useEffect(() => {
-    setLeafletMap(new Map('map', {
-      center: new LatLng(center.lat, center.long),
+  useLayoutEffect(() => {
+    const map = L.map('map', {
+      center: L.latLng(center.lat, center.long),
       zoom
-    }));
+    });
+
+    setLeafletMap(map);
 
     return () => {
       setLeafletMap(null);
@@ -33,7 +39,7 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
 
   return (
     <LeafletMapContext.Provider value={leafletMap}>
-      <div id='map'>
+      <div id='map' data-testid={testid}>
         {leafletMap && children}
       </div>
     </LeafletMapContext.Provider>

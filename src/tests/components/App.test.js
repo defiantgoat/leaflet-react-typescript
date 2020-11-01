@@ -5,8 +5,6 @@ import { mockStore } from "../test-helpers";
 import { addUser } from "../../actions";
 import App from "../../components/App";
 
-addUser = jest.fn();
-
 describe("App tests", () => {
 
   afterEach(cleanup);

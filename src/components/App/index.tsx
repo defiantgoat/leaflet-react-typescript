@@ -1,6 +1,6 @@
 import React from 'react';
 import LeafletMap from '../LeafletMap';
-import OSMTileLayer from '../OSMTileLayer';
+import LeafletTileLayer from '../LeafletTileLayer';
 import { config } from '../../config';
 import './App.scss';
 
@@ -12,7 +12,11 @@ const App: React.FC = () =>  {
           zoom={config.mapZoom}
           center={config.mapCenter}
         >
-          <OSMTileLayer />
+          <LeafletTileLayer
+            layerId='osm'
+            tileUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
         </LeafletMap>
     </div>
   );
